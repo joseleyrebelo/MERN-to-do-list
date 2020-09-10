@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-const Header = props => {
+const Header = (props) => {
   return (
     <header className="main-header">
       <a href="/">Home</a>
-      <a href="/stats">Stats</a>
-      <a href="/search">Search</a>
+      <a href="/todolist">Todolist</a>
+      <a href="/stats">stats</a>
       <a href="/edit">Edit</a>
     </header>
   );

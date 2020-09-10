@@ -11,34 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.main-header a{
-  margin-left: 25px;
-}
-
-.main-footer{
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  height: 50px;
-  width: 100%;
-  background-color: rgba(0,0,0,.5);
-  text-align: center;
-}
-
-.todo-main.error{
-  padding:5px;
-  background: rgba(255, 0, 0, 0.5)
-}
-
-.todo-entry.done{
-  background-color: rgba(0,255,0,.5);
-}
-
-.todo-list .todo-entry.done{
-  display: none;
-}
-
-.todo-list.show-done .todo-entry.done{
-  display: block;
-}

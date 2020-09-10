@@ -3,6 +3,8 @@ import { Input, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useHttpClient } from "../../_hooks/http-request";
 import { API_ENDPOINT } from "../../_shared/constants";
+import { sortTodosPerId } from "../../_shared/todolist_common";
+import { MdRemove, MdCheck } from "react-icons/md";
 
 const LandingPage = () => {
   const { sendRequest } = useHttpClient();
@@ -26,22 +28,6 @@ const LandingPage = () => {
   useEffect(() => {
     refreshTodos();
   }, []);
-
-  const sortTodosPerId = (todos) => {
-    let obj = {};
-    console.log(todos);
-    todos.forEach((row) => {
-      console.log(row);
-      obj[row._id] = {
-        task: row.task,
-        notes: row.notes,
-        done: row.done,
-      };
-    });
-
-    console.log(obj);
-    return obj;
-  };
 
   // Retrieves the latest Todo entries
   // * From MongoDB database via backend
@@ -89,7 +75,7 @@ const LandingPage = () => {
           })()
         : (() => {
             dispatch({ type: "FAILED_ADDING_TODO" });
-            dispatch({ type: "FAILED_OPERATION" });
+            dispatch({ type: "FAILED_OPERATIONS" });
             setStates({ ...states, createEntryError: true });
             setTimeout(() => {
               setStates({ ...states, createEntryError: false });
@@ -118,7 +104,7 @@ const LandingPage = () => {
             dispatch({ type: "UPDATED_TODO" });
           })()
         : (() => {
-            dispatch({ type: "FAILED_OPERATION" });
+            dispatch({ type: "FAILED_OPERATIONS" });
             setTimeout(() => {
               setStates({ ...states, createEntryError: false });
             }, 3000);
@@ -152,7 +138,7 @@ const LandingPage = () => {
         ? (() => {
             refreshTodos();
             dispatch({ type: "DELETED_TODO" });
-            dispatch({ type: "FAILED_OPERATION" });
+            dispatch({ type: "FAILED_OPERATIONS" });
           })()
         : (() => {})();
     });
@@ -160,46 +146,38 @@ const LandingPage = () => {
 
   return (
     <>
-      <div className="app">
-        <span style={{ fontSize: "2rem" }}>
-          Welcome to this simple todo list solution using MERN stack.
-        </span>
-      </div>
+      <div className="app"></div>
       <div className="" onClick={toggleShowDoneTodo}>
         {states.showDoneTodos ? `Hide done` : `Show done`}
       </div>
-      <div className={`todo-list ${states.showDoneTodos && "show-done"}`}>
+      <div className={`todo__list ${states.showDoneTodos && "show-done"}`}>
         {states.todos.map((row) => (
-          <div key={row._id} className={`todo-entry ${row.done && "done"}`}>
-            {row.task} --//-- {row.notes}
-            <span
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: "red",
-                display: "inline-block",
-              }}
-              target_id={row._id}
-              onClick={(e) => {
-                deleteEntry(e);
-              }}
-            ></span>
-            <span
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: "green",
-                display: "inline-block",
-              }}
-              target_id={row._id}
-              onClick={(e) => {
-                toggleDoneEntry(e);
-              }}
-            ></span>
+          <div key={row._id} className={`todo__entry ${row.done && "done"}`}>
+            <div class="todo__entry-text">
+              {row.task} --//-- {row.notes}
+            </div>
+            <div class="todo__entry-actions">
+              <span
+                target_id={row._id}
+                onClick={(e) => {
+                  deleteEntry(e);
+                }}
+              >
+                <MdRemove />
+              </span>
+              <span
+                target_id={row._id}
+                onClick={(e) => {
+                  toggleDoneEntry(e);
+                }}
+              >
+                <MdCheck />
+              </span>
+            </div>
           </div>
         ))}
       </div>
-      <div className={`todo-main ${states.createEntryError && "error"}`}>
+      <div className={`todo__main ${states.createEntryError && "error"}`}>
         <Input
           id="task"
           placeholder="Task"

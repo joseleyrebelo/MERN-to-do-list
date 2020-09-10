@@ -4,7 +4,7 @@ const counterInitialState = {
   deleted_todos: 0,
   updated_todos: 0,
   failed_adding_todos: 0,
-  failed_operation: 0,
+  failed_operations: 0,
 };
 
 const counterReducer = (state = counterInitialState, action) => {
@@ -19,8 +19,8 @@ const counterReducer = (state = counterInitialState, action) => {
       return { ...state, deleted_todos: state.deleted_todos + 1 };
     case "FAILED_ADDING_TODO":
       return { ...state, failed_adding_todos: state.failed_adding_todos + 1 };
-    case "FAILED_OPERATION":
-      return { ...state, failed_operation: state.failed_operation + 1 };
+    case "FAILED_OPERATIONS":
+      return { ...state, failed_operations: state.failed_operations + 1 };
     default:
       return state;
   }
