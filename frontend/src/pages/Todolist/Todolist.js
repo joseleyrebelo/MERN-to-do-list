@@ -194,7 +194,10 @@ const LandingPage = () => {
           </div>
         ))}
       </div>
-      <div className={`todo__main ${states.createEntryError && "error"}`}>
+      <form
+        onSubmit={createEntry}
+        className={`todo__main ${states.createEntryError && "error"}`}
+      >
         <Input
           id="task"
           className="todo__main-task"
@@ -219,7 +222,7 @@ const LandingPage = () => {
         <Button className="todo__main-submit" onClick={createEntry}>
           Submit
         </Button>
-      </div>
+      </form>
     </>
   );
 };

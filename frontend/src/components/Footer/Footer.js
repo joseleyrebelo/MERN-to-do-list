@@ -14,8 +14,8 @@ const Footer = () => {
 
   return (
     <footer className="main-footer">
+      <div className="">Open Session Stats</div>
       <hr />
-      <div className="">Open Stats</div>
       <div class="stats">Added todos : {added_todos}</div>
       <div class="stats">Deleted todos : {deleted_todos}</div>
       <div class="stats">Updated todos : {updated_todos}</div>
