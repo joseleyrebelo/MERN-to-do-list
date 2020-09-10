@@ -19,8 +19,8 @@ const Footer = () => {
       <div class="stats">Added todos : {added_todos}</div>
       <div class="stats">Deleted todos : {deleted_todos}</div>
       <div class="stats">Updated todos : {updated_todos}</div>
-      <div class="stats">Failed todos : {failed_adding_todos}</div>
-      <div class="stats">Failed adding todos : {failed_operations}</div>
+      <div class="stats">Failed adding todos : {failed_adding_todos}</div>
+      <div class="stats">Failed operations (general) : {failed_operations}</div>
     </footer>
   );
 };
