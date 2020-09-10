@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { API_ENDPOINT } from "../../_shared/constants";
 import { useHttpClient } from "../../_hooks/http-request";
+import { MdFingerprint } from "react-icons/md";
 
 const Home = () => {
   const { sendRequest } = useHttpClient();
@@ -37,12 +38,16 @@ const Home = () => {
   return (
     <div className="app__home">
       <div>
-        <div style={{ fontSize: "1rem" }}>Welcome, your todolist is</div>
-        <div style={{ fontSize: "4rem", fontWeight: 700 }}>
-          {states.percentageDone}% <span style={{ fontSize: "70%" }}>done</span>
+        <div style={{ fontSize: "1rem" }}>Welcome back, your todolist is</div>
+        <div style={{ fontSize: "3.6rem", fontWeight: 700 }}>
+          {states.percentageDone}%{" "}
+          <span style={{ fontSize: "70%" }}>
+            done <MdFingerprint />
+          </span>
         </div>
         <div>
-          ({states.doneEntries}/{states.totalEntries})
+          {states.doneEntries} tasks done -{" "}
+          {states.totalEntries - states.doneEntries} left
         </div>
       </div>
     </div>

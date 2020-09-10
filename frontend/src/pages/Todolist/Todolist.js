@@ -3,7 +3,6 @@ import { Input, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useHttpClient } from "../../_hooks/http-request";
 import { API_ENDPOINT } from "../../_shared/constants";
-import { sortTodosPerId } from "../../_shared/todolist_common";
 import { MdRemove, MdCheck } from "react-icons/md";
 
 const LandingPage = () => {
@@ -22,7 +21,7 @@ const LandingPage = () => {
     todos: [],
     sortedTodos: {},
     createEntryError: false,
-    showDoneTodos: false,
+    showDoneTodos: true,
   });
 
   useEffect(() => {
@@ -112,22 +111,6 @@ const LandingPage = () => {
     });
   };
 
-  // Set todo entry as done
-  // * Save to database
-  const toggleDoneEntry = (e) => {
-    let id = e.target.getAttribute("target_id");
-    updateEntry(
-      states.sortedTodos[id].task,
-      states.sortedTodos[id].notes,
-      !states.sortedTodos[id].done,
-      id
-    );
-  };
-
-  const toggleShowDoneTodo = (e) => {
-    setStates({ ...states, showDoneTodos: !states.showDoneTodos });
-  };
-
   // Deletes todo entry on database
   const deleteEntry = (e) => {
     sendRequest(
@@ -144,15 +127,59 @@ const LandingPage = () => {
     });
   };
 
+  // Set todo entry as done
+  // * Save to database
+  const toggleDoneEntry = (e) => {
+    let id = e.target.getAttribute("target_id");
+    console.log(id);
+    updateEntry(
+      states.sortedTodos[id].task,
+      states.sortedTodos[id].notes,
+      !states.sortedTodos[id].done,
+      id
+    );
+  };
+
+  const toggleShowDoneTodo = (e) => {
+    setStates({ ...states, showDoneTodos: !states.showDoneTodos });
+  };
+
+  const sortTodosPerId = (todos) => {
+    let obj = {};
+    console.log(todos);
+    todos.forEach((row) => {
+      console.log(row);
+      obj[row._id] = {
+        task: row.task,
+        notes: row.notes,
+        done: row.done,
+      };
+    });
+
+    console.log(obj);
+    return obj;
+  };
+
   return (
     <>
       <div className="app"></div>
-      <div className="" onClick={toggleShowDoneTodo}>
-        {states.showDoneTodos ? `Hide done` : `Show done`}
+      <div className="app__show-control__outer">
+        <div className="app__show-control" onClick={toggleShowDoneTodo}>
+          {states.showDoneTodos ? `Hide done` : `Show done`}
+        </div>
       </div>
       <div className={`todo__list ${states.showDoneTodos && "show-done"}`}>
         {states.todos.map((row) => (
           <div key={row._id} className={`todo__entry ${row.done && "done"}`}>
+            <span
+              className="todo__entry-tick"
+              target_id={row._id}
+              onClick={(e) => {
+                toggleDoneEntry(e);
+              }}
+            >
+              <MdCheck />
+            </span>
             <div class="todo__entry-text">
               {row.task} --//-- {row.notes}
             </div>
@@ -164,14 +191,6 @@ const LandingPage = () => {
                 }}
               >
                 <MdRemove />
-              </span>
-              <span
-                target_id={row._id}
-                onClick={(e) => {
-                  toggleDoneEntry(e);
-                }}
-              >
-                <MdCheck />
               </span>
             </div>
           </div>
