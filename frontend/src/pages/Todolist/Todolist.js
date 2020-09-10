@@ -3,7 +3,7 @@ import { Input, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useHttpClient } from "../../_hooks/http-request";
 import { API_ENDPOINT } from "../../_shared/constants";
-import { MdRemove, MdCheck } from "react-icons/md";
+import { MdRemove, MdCheck, MdRemoveRedEye } from "react-icons/md";
 
 const LandingPage = () => {
   const { sendRequest } = useHttpClient();
@@ -165,7 +165,7 @@ const LandingPage = () => {
       <div className="app"></div>
       <div className="app__show-control__outer">
         <div className="app__show-control" onClick={toggleShowDoneTodo}>
-          {states.showDoneTodos ? `Hide done` : `Show done`}
+          {states.showDoneTodos ? `Hide Done` : `Show Done`} <MdRemoveRedEye />
         </div>
       </div>
       <div className={`todo__list ${states.showDoneTodos && "show-done"}`}>
@@ -180,9 +180,7 @@ const LandingPage = () => {
             >
               <MdCheck />
             </span>
-            <div class="todo__entry-text">
-              {row.task} --//-- {row.notes}
-            </div>
+            <div class="todo__entry-text">{row.task}</div>
             <div class="todo__entry-actions">
               <span
                 target_id={row._id}
@@ -199,6 +197,7 @@ const LandingPage = () => {
       <div className={`todo__main ${states.createEntryError && "error"}`}>
         <Input
           id="task"
+          className="todo__main-task"
           placeholder="Task"
           type="text"
           value={states.todo_entry.task}
@@ -206,16 +205,20 @@ const LandingPage = () => {
             handleToDoEntryValueChange(e, "task");
           }}
         />
-        <Input
-          id="notes"
-          placeholder="Notes"
-          type="text"
-          value={states.todo_entry.notes}
-          onChange={(e) => {
-            handleToDoEntryValueChange(e, "notes");
-          }}
-        />
-        <Button onClick={createEntry}>Submit</Button>
+        {false && (
+          <Input
+            id="notes"
+            placeholder="Notes"
+            type="text"
+            value={states.todo_entry.notes}
+            onChange={(e) => {
+              handleToDoEntryValueChange(e, "notes");
+            }}
+          />
+        )}
+        <Button className="todo__main-submit" onClick={createEntry}>
+          Submit
+        </Button>
       </div>
     </>
   );

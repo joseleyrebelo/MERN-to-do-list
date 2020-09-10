@@ -21,14 +21,14 @@ router.get("/:pid", todosControllers.getTodoById);
 // * Create new entry
 router.post(
   "/",
-  [paramNotEmpty("task"), paramNotEmpty("notes"), paramNotEmpty("done")],
+  [paramNotEmpty("task"), paramNotEmpty("done")],
   todosControllers.createTodo
 );
 
 // * Update entry
 router.patch(
   "/:pid",
-  [paramNotEmpty("task"), paramNotEmpty("notes"), paramNotEmpty("done")],
+  [paramNotEmpty("task"), paramNotEmpty("done")],
   todosControllers.updateTodo
 );
 

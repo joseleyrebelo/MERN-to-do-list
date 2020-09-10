@@ -15,7 +15,7 @@ $red: red;
 
 .app{
   &__center{
-    max-width: 800px;
+    max-width: 700px;
     margin: 0 auto;
   }
   &__body{
@@ -32,8 +32,17 @@ $red: red;
   }
   &__show-control{
     display: inline-block;
+    border-radius: 30px;
+    border: 2px solid black;
+    color: black;
+    padding: 5px 15px;
+    cursor: pointer;
     &__outer{
       text-align: right;
+    }
+    svg{
+      font-size: 120%;
+      vertical-align: bottom;
     }
   }
 }
@@ -62,9 +71,43 @@ $red: red;
 }
 
 .todo{
-  &__main.error{
-    padding:5px;
-    background: rgba(255, 0, 0, 0.5)
+  &__main{
+    margin-top: 25px;
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    &.error{
+      .todo__main-task{
+        border-color: $red;
+      }
+    }
+    &-task{
+      flex-grow: 1;
+      padding: 10px 20px;
+      border: 0px;
+      font-size: 15px;
+      border-radius: 30px;
+      border: 2px solid black;
+      box-sizing: content-box;
+      &:focus{
+        outline: none;
+      }
+    }
+    &-submit{margin-left: 15px;
+      background-color: black;
+      border: 2px solid black;
+      color: white;
+      padding: 10px 20px;
+      border: 0px;
+      font-size: 15px;
+      border-radius: 30px;
+      box-sizing: content-box;
+      &:focus{
+        outline: none;
+      }
+    }
   }
   &__entry{
     display:flex;
